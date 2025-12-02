@@ -1588,6 +1588,50 @@
       
         // Prevent zoom on iOS when focusing on inputs
         document.addEventListener('touchstart', function() {}, {passive: true});
+          const input = document.getElementById('teamName');
+    
+    // Handle typing
+    input.addEventListener('keydown', function(e) {
+        // Allow control keys
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        
+        // Allow navigation keys
+        if ([8, 9, 13, 16, 17, 18, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 46, 144].includes(e.keyCode)) {
+            return;
+        }
+        
+        // Get the actual character
+        const key = e.key;
+        
+        // If it's a lowercase letter, convert it
+        if (key.length === 1 && key >= 'a' && key <= 'z') {
+            e.preventDefault();
+            
+            // Insert uppercase version at cursor position
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            
+            this.value = this.value.substring(0, start) + 
+                        key.toUpperCase() + 
+                        this.value.substring(end);
+            
+            // Move cursor
+            this.selectionStart = this.selectionEnd = start + 1;
+        }
+    });
+    
+    // Handle paste
+    input.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData('text').toUpperCase();
+        document.execCommand('insertText', false, pasted);
+    });
+    
+    // Final validation on blur
+    input.addEventListener('blur', function() {
+        this.value = this.value.toUpperCase();
+    });
       </script>
 </body>
+
 </html>
