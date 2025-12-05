@@ -915,6 +915,7 @@
             white-space: nowrap;
             border: 0;
         }
+        
 
         /* Loading States */
         .loading {
@@ -939,6 +940,93 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        .payment-method-section {
+            margin-top: 20px;
+        }
+
+        .method-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .method-btn {
+            flex: 1;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .method-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+       
+
+        .method-content.active {
+            display: block;
+        }
+
+        .qr-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .whatsapp-number-container {
+            background: rgba(37, 211, 102, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            border: 2px solid var(--whatsapp);
+        }
+        #whatlin{
+            text-decoration: none;
+            border: 2px solid gray;
+            border-radius: 15px;
+            padding: 1px;
+            
+        }
+
+        .whatsapp-number-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--whatsapp);
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .whatsapp-instructions {
+            margin-top: 15px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -1102,7 +1190,7 @@
                         <h3><i class="fas fa-flag"></i> Team Information</h3>
                         <div class="form-group">
                             <label for="teamName">Team Name *</label>
-                            <input type="text" id="teamName" name="teamName" required>
+                            <input type="text" id="teamName" name="teamName" required >
                         </div>
                         <div class="form-group">
                             <label for="teamRegion">Team Region *</label>
@@ -1114,6 +1202,8 @@
                                 <option value="birgunj">Birgunj</option>
                                 <option value="butwal">Butwal</option>
                                 <option value="dharan">Dharan</option>
+                                <option value="dharan">Chitwan</option>
+                                <option value="dharan">Gaindakot</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
@@ -1217,6 +1307,65 @@
                         </div>
                     </div>
 
+                    <!-- payment secction -->
+                    <div class="form-section payment-method-section">
+                        <h3><i class="fas fa-credit-card"></i> Payment Method</h3>
+                        <p style="color: #ff6b35; margin-bottom: 1rem; font-size: 1.1rem;">Registration Fee: NPR 1000 per team</p>
+                        
+                        <br>
+                            <button type="button" class="method-btn active" onclick="selectPaymentMethod('qr')">
+                                <i class="fas fa-qrcode"></i> Pay via QR
+                            </button>
+                            
+                        
+
+                        <!-- QR Payment -->
+                        <div id="qrPayment" class="method-content active">
+                            <div class="qr-container">
+                                <p>Scan the QR code below to pay NPR 1000</p>
+                                <div class="qr-code">
+                                    <!--  QR code -->
+                                    <img src="ScreenASDFFGshotasgfsgfgftwttywgywg_20252323322_202247.jpg"alt="Payment QR Code">
+                                </div>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">After payment, enter the transaction ID below:</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="transactionId">Transaction ID *</label>
+                                <input type="text" id="transactionId" name="transactionId" required placeholder="Enter transaction ID from your payment">
+                            </div>
+                        </div>
+                       
+                       <br>
+                       <!-- Whatapps payment -->
+                        <!-- <button type="button" class="method-btn" onclick="selectPaymentMethod('whatsapp')"> -->
+                            <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                      
+                        <!-- WhatsApp Payment -->
+                        <div id="whatsappPayment" class="method-content">
+                            <div class="whatsapp-number-container">
+                                <h4 style="color: var(--whatsapp); margin-bottom: 15px;">
+                                    <i class="fab fa-whatsapp"></i> Send Payment Screenshot to:
+                                </h4>
+                                <div class="whatsapp-number-display" id="whatsappNumberDisplay">
+                                    +977 9748203635
+                                </div>
+                                <br>OR <br>
+                                <div class="whatsapp-number-display" id="whatsappNumberDisplay">
+                                WhatsApp link -><a href="https://wa.me/qr/QJI5HANWE6E5D1"id="whatlin">Open Link</a>
+                                </div>
+                                <div class="whatsapp-instructions">
+                                    <p><strong>Instructions:</strong></p>
+                                    <p>1. Send NPR 1000 via Fonepay/IMEPay/eSewa to our number</p>
+                                    <p>2. Take a screenshot of the successful payment</p>
+                                    <p>3. Send the screenshot to the WhatsApp number above</p>
+                                    <p>4. We will verify your payment within 24 hours</p>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+
                     <!-- Form Actions -->
                     <div class="form-actions">
                         <button type="button" class="form-btn cancel-btn" onclick="closeRegistrationPopup()">
@@ -1294,6 +1443,10 @@
                     <div class="review-value" id="reviewSubstitute">-</div>
                 </div>
             </div>
+            <div class="review-row">
+                <div class="review-label">Transaction Id</div>
+                <div class="review-value" id="tid"></div>
+            </div>
             
             <div class="review-actions">
                 <button type="button" class="form-btn edit-btn" onclick="closeReviewPopup()">
@@ -1326,7 +1479,7 @@
 
     <script>
         // ===== REPLACE THIS WITH YOUR ACTUAL GOOGLE SCRIPT URL =====
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyUckgdlh_oUHcsudgE8wKfMQnyGi_Xueeq56roN2UNYgJyBP15c-iQ0T1Fpj5cGX2o/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwz16M70cFxRJbssxBpkfIB5LJpqGK8XlDCNfHpGczoskisonD0wKPwYUgYHVmKygDS/exec';
       
         // ===== FIXED REGISTRATION FUNCTION =====
         async function confirmRegistration() {
@@ -1355,7 +1508,8 @@
               member4Name: document.getElementById('member4Name').value,
               member4UID: document.getElementById('member4UID').value,
               subName: document.getElementById('subName').value || '',
-              subUID: document.getElementById('subUID').value || ''
+              subUID: document.getElementById('subUID').value || '',
+              transactionId: document.getElementById('transactionId').value || ''
             };
       
             console.log('Sending to:', GOOGLE_SCRIPT_URL);
@@ -1462,6 +1616,7 @@
           const member4UID = document.getElementById('member4UID').value;
           const subName = document.getElementById('subName').value;
           const subUID = document.getElementById('subUID').value;
+          const transactionId= document.getElementById('transactionId').value;
           
           // Update review content
           document.getElementById('reviewTeamName').textContent = teamName;
@@ -1473,6 +1628,7 @@
           document.getElementById('reviewMember2').textContent = `${member2Name} (UID: ${member2UID})`;
           document.getElementById('reviewMember3').textContent = `${member3Name} (UID: ${member3UID})`;
           document.getElementById('reviewMember4').textContent = `${member4Name} (UID: ${member4UID})`;
+          document.getElementById('tid').textContent = transactionId;
           
           // Show substitute if provided
           if (subName && subUID) {
@@ -1588,7 +1744,12 @@
       
         // Prevent zoom on iOS when focusing on inputs
         document.addEventListener('touchstart', function() {}, {passive: true});
-          const input = document.getElementById('teamName');
+
+
+
+
+        // code to convert uppercase 
+        const input = document.getElementById('teamName');
     
     // Handle typing
     input.addEventListener('keydown', function(e) {
@@ -1631,7 +1792,15 @@
     input.addEventListener('blur', function() {
         this.value = this.value.toUpperCase();
     });
+
+    // document.getElementById("tid")=document.getElementById("transactionid").value;
+    
+
+
+    
+
+
+    
       </script>
 </body>
-
 </html>
